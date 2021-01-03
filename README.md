@@ -12,8 +12,11 @@ This is about Node Project...
 ## Mvc Detail
 
 i used mvc approach for this project.
+
 controller--> blogcontroller.js
+
 model --> blog.js
+
 views --> all views pages
 
 ## Function Detail
@@ -32,10 +35,18 @@ const blog_details= (req,res)=>{
 }
 ```
 Blog_details has a callback function .
-`findById(id)` find the blog from database.
+
+`findById(id)` is used for find the blog from database.
+
+Promise is called. `Then` and `Catch` method is chained to findbyid method.
+
+`res.render` passed title and result to the view.
 
 ## Version
-(package.json)
+(detail's from package.json)
+
 node version --> 14.15.1
+
 nodemon version -->2.0.6
+
 npm -->6.14.8

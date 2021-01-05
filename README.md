@@ -1,25 +1,25 @@
-# node_project
+# My aim for this project.
 
-Project Details......
+I have not used more library or implemented so much functionality, my focus was only on
 
-
-# Node Project
-This is about Node Project...
-* Can Add blog
-* Can Delete Blog.
-* Can View blog.
+* Want to Use MVC Apraoch. 
+* Famalier with NODE.JS (async,chaining,promise).
+* Getting used to with Express.
+* Getting used to with mongoose(crud functionality).
 
 ## Mvc Detail
 
-i used mvc approach for this project.
+<!-- i used mvc approach for this project.
 
-controller--> blogcontroller.js
+controller -> blogcontroller.js
 
-model --> blog.js
+model -> blog.js
 
-views --> all views pages
+views -> all views pages -->
 
-## Function Detail
+Coming soon.......
+
+## blog_detail Function Explain.
 
 ```Javascript
 const blog_details= (req,res)=>{
@@ -34,11 +34,11 @@ const blog_details= (req,res)=>{
     })
 }
 ```
-Blog_details has a callback function .
+`req.params.id` from request url we are storing blog id to id variable.
 
-`findById(id)` is used for find the blog from database.
+`findById(id)` is used to find the blog from database.
 
-Promise is called. `Then` and `Catch` method is chained to findbyid method.
+`Then` and `Catch` method is chained to findbyid method.we can say it is using  try and catch block in code.
 
 `res.render` passed title and result to the view.
 

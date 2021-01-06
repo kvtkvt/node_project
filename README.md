@@ -1,11 +1,13 @@
 # My aim for this project.
 
-I have not used more library or implemented so much functionality, my focus was only on
+I have not used more library or implemented so much functionality, my focus was only on.
 
-* Want to Use MVC Apraoch. 
 * Famalier with NODE.JS (async,chaining,promise).
 * Getting used to with Express.
-* Getting used to with mongoose(crud functionality).
+* Want to Use MVC Apraoch. 
+* Getting used to with mongoose(crud operation).
+* Clean code readable code.
+* Server side templating EJS.
 
 ## Mvc Detail
 
@@ -34,13 +36,13 @@ const blog_details= (req,res)=>{
     })
 }
 ```
-`req.params.id` from request url we are storing blog id to id variable.
+`req.params.id` request url we are storing blog id to id variable.
 
 `findById(id)` is used to find the blog from database.
 
 `Then` and `Catch` method is chained to findbyid method.we can say it is using  try and catch block in code.
 
-`res.render` passed title and result to the view.
+`res.render` it render's detail page with passed data.view get data and ejs generates page and send response.
 
 ## Version
 (detail's from package.json)

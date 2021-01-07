@@ -6,7 +6,7 @@ I have not used more library or implemented so much functionality, my focus was 
 * Getting used to with Express.
 * Want to Use MVC Apraoch. 
 * Getting used to with mongoose(crud operation).
-* Clean code readable code.
+* Clean code and readable code.
 * Server side templating EJS.
 
 ## Mvc Detail
@@ -36,9 +36,9 @@ const blog_details= (req,res)=>{
     })
 }
 ```
-`req.params.id` request url we are storing blog id to id variable.
+`req.params.id` request url we are storing blog_id to id variable.
 
-`findById(id)` is used to find the blog from database.
+`Blog.findById(id)` is used to find the blog from database,Blog is model,moongose schema.
 
 `Then` and `Catch` method is chained to findbyid method.we can say it is using  try and catch block in code.
 

@@ -1,7 +1,5 @@
 # My aim for this project.
 
-I have not used more library or implemented so much functionality, my focus was only on.
-
 * Famalier with NODE.JS (async,chaining,promise).
 * Getting used to with Express.
 * Want to Use MVC Apraoch. 
@@ -19,10 +17,9 @@ model -> blog.js
 
 views -> all views pages -->
 
-
+<!--
 ## blog_detail Function Explain.
 
-<!--
 ```Javascript
 const blog_details= (req,res)=>{
     const id= req.params.id;

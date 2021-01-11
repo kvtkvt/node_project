@@ -9,7 +9,7 @@ I have not used more library or implemented so much functionality, my focus was 
 * Clean code and readable code.
 * Server side templating EJS.
 
-## Mvc Detail
+<!-- ## Mvc Detail
 
 <!-- i used mvc approach for this project.
 
@@ -19,10 +19,10 @@ model -> blog.js
 
 views -> all views pages -->
 
-Coming soon.......
 
 ## blog_detail Function Explain.
 
+<!--
 ```Javascript
 const blog_details= (req,res)=>{
     const id= req.params.id;
@@ -36,13 +36,7 @@ const blog_details= (req,res)=>{
     })
 }
 ```
-`req.params.id` request url we are storing blog_id to id variable.
-
-`Blog.findById(id)` is used to find the blog from database,Blog is model,moongose schema.
-
-`Then` and `Catch` method is chained to findbyid method.we can say it is using  try and catch block in code.
-
-`res.render` it render's detail page with passed data.view get data and ejs generates page and send response.
+-->
 
 ## Version
 (detail's from package.json)

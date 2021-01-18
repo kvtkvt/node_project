@@ -1,8 +1,15 @@
+# Simple Node blog app
+
+User can add, view and delete blog, while adding blog user can set title , snippet and blog content.
+
+Blog is sorted by time created and displayed in BLOG page. 
+
+By clicking any blog user can view in detail and can delete.
+
 # My aim for this project.
 
-* Famalier with NODE.JS (async,chaining,promise).
-* Getting used to with Express.
-* Want to Use MVC Apraoch. 
+* Famalier with NODE.JS (async,chaining,promise) and EXPRESS.
+* Use MVC Apraoch. 
 * Getting used to with mongoose(crud operation).
 * Clean code and readable code.
 * Server side templating EJS.

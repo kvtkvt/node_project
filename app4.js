@@ -10,12 +10,14 @@ app.set('view engine','ejs');
 app.use(express.urlencoded({extended:true}));
 
 //Connection url
-const dburi='mongodb+srv://mongotest:UpgMIg9auiHkhbhg@cluster0.epfss.mongodb.net/node?retryWrites=true&w=majority';
+//const dburi='mongodb+srv://mongotest:UpgMIg9auiHkhbhg@cluster0.epfss.mongodb.net/node?retryWrites=true&w=majority';
+const dburi='mongodb://127.0.0.1:27017';
 
 //Connect to db
 mongoose.connect(dburi,{ useNewUrlParser: true, useUnifiedTopology : true})
     .then((result)=> app.listen(3000))
     .catch((err)=> console.log(err));
+
 
 //Home page
 app.get('/',(req,res)=>{

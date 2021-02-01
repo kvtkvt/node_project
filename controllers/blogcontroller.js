@@ -3,7 +3,7 @@ const Blog =require('../models/blog');
 
 const blog_index= (req,res)=>{
     var mysort ={  title : 1};
-    Blog.find().sort({createdAt: -1})
+    Blog.find({isVisible:1}).sort({createdAt: -1})
     .then((result)=>{
         res.render('index',{title:'Title',blogs : result});
     })

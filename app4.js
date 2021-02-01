@@ -2,6 +2,7 @@ const express= require ('express');
 const mongoose= require('mongoose');
 const Blog =require('./models/blog');
 const app= express();
+const crone=require('node-cron');
 const blogroutes = require('./routes/blogroutes');
 
 app.set('view engine','ejs');
@@ -19,9 +20,18 @@ mongoose.connect(dburi,{ useNewUrlParser: true, useUnifiedTopology : true})
     .catch((err)=> console.log(err));
 
 
+//Crone Scheduled for every hour.
+crone.schedule('*/20 * * * * *', (err) => {
+    Blog.updateMany({isVisible:0},{isVisible:1})
+    .catch((err)=> {
+        console.log(err);
+    });
+    console.log('Crone !!!!');
+})
+
 //Home page
 app.get('/',(req,res)=>{
-    Blog.find().limit(5)
+    Blog.find({isVisible:1}).limit(5)
     .then((result)=>{
         res.render('index',{title:'Home',blogs : result});
     })

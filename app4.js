@@ -1,6 +1,7 @@
 const express= require ('express');
 const mongoose= require('mongoose');
 const Blog =require('./models/blog');
+const User =require('./models/user');
 const app= express();
 const crone=require('node-cron');
 const blogroutes = require('./routes/blogroutes');
@@ -47,6 +48,28 @@ app.get('/about',(req,res)=>{
 
 //Blog routes
 app.use('/blogs',blogroutes);
+
+//Signup
+app.get('/signup',(req,res)=>{
+    res.render('signup',{title:'Signup'});
+})
+
+//Signup
+app.post('/signup',(req,res)=>{
+    const user_detail = new User(req.body);
+    user_detail.save()
+    .then((result)=>{
+        res.redirect('/');
+    })
+    .catch((err)=>{
+        console.log(err);
+    });
+})
+
+//Login
+app.get('/login',(req,res)=>{
+    res.render('login',{title:'Login'})
+})
 
 //404 page
 app.use((req,res)=>{

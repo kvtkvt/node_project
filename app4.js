@@ -4,6 +4,7 @@ const Blog =require('./models/blog');
 const User =require('./models/user');
 const app= express();
 const crone=require('node-cron');
+const Bcrypt=require('bcrypt');
 const blogroutes = require('./routes/blogroutes');
 
 app.set('view engine','ejs');
@@ -56,10 +57,11 @@ app.get('/signup',(req,res)=>{
 
 //Signup
 app.post('/signup',(req,res)=>{
+    req.body.password=Bcrypt.hashSync(req.body.password,10);
     const user_detail = new User(req.body);
     user_detail.save()
     .then((result)=>{
-        res.redirect('/');
+        res.redirect('/login');
     })
     .catch((err)=>{
         console.log(err);
@@ -69,6 +71,27 @@ app.post('/signup',(req,res)=>{
 //Login
 app.get('/login',(req,res)=>{
     res.render('login',{title:'Login'})
+})
+
+//Verify credentials
+app.post('/login',(req,res)=>{    
+    User.findOne({email: req.body.email})
+    .then((result)=>{
+        if(result== null){
+            console.log("username not exist!!!");
+        }
+        else{
+            if(!Bcrypt.compareSync(req.body.password,result.password)){
+                console.log("password does not match");
+            }
+            else{
+                console.log("~valid~");                
+            }
+        }
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
 })
 
 //404 page

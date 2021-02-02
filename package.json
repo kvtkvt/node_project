@@ -4,6 +4,7 @@
   "description": "* Famalier with NODE.JS (async,chaining,promise).\r * Getting used to with Express.\r * Want to Use MVC Apraoch. \r * Getting used to with mongoose(crud operation).\r * Clean code and readable code.\r * Server side templating EJS.",
   "main": "app4.js",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "mongoose": "^5.11.7",

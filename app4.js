@@ -57,7 +57,7 @@ app.get('/signup',(req,res)=>{
 
 //Signup
 app.post('/signup',(req,res)=>{
-    req.body.password=Bcrypt.hashSync(req.body.password,10);
+    req.body.password=Bcrypt.hash(req.body.password,10);
     const user_detail = new User(req.body);
     user_detail.save()
     .then((result)=>{
@@ -81,7 +81,7 @@ app.post('/login',(req,res)=>{
             console.log("username not exist!!!");
         }
         else{
-            if(!Bcrypt.compareSync(req.body.password,result.password)){
+            if(!Bcrypt.compare(req.body.password,result.password)){
                 console.log("password does not match");
             }
             else{

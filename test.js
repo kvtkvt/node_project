@@ -1,9 +1,10 @@
 //BTC API 
-var Request = require('request');
-var fs = require('fs');
-var crone = require('node-cron');
-var express = require('express');
-var app = express();
+const Request = require('request');
+const fs = require('fs');
+const crone = require('node-cron');
+const express = require('express');
+const app = express();
+
 
 //fetch new data every 10 seconds.
 // setInterval( function(){
@@ -18,15 +19,15 @@ var app = express();
 // },10000);
 
 // crone shedule for schedule file upload.
-crone.schedule('*/10 * * * * *', () => {
-    Request.get("https://api.cryptonator.com/api/ticker/btc-usd", (error, response) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log(JSON.stringify(response.body));
-        fs.appendFileSync('23.txt', '\n'+ JSON.stringify(response.body));
-    });
-})
+// crone.schedule('*/10 * * * * *', () => {
+//     Request.get("https://api.cryptonator.com/api/ticker/btc-usd", (error, response) => {
+//         if (error) {
+//             return console.log(error);
+//         }
+//         console.log(JSON.stringify(response.body));
+//         fs.appendFileSync('23.txt', '\n'+ JSON.stringify(response.body));
+//     });
+// })
 
 //request for api
 // Request.get("https://api.cryptonator.com/api/ticker/btc-usd", (error, response) => {

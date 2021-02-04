@@ -41,6 +41,10 @@ const blog_create_get=(req,res)=>{
 }
 
 const blog_create_post=(req,res)=>{
+    if (req.body.datetime == '') {
+        console.log('No future publish');  
+        req.body.isVisible = true;
+    }
     const blog = new Blog(req.body);
     blog.save()
     .then((result)=>{

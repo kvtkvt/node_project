@@ -7,6 +7,7 @@ const app= express();
 const crone=require('node-cron');
 const Bcrypt=require('bcrypt');
 const blogroutes = require('./routes/blogroutes');
+const crypto=require('crypto');
 
 app.set('view engine','ejs');
 
@@ -84,7 +85,8 @@ app.get('/login',(req,res)=>{
 });
 
 //Verify credentials
-app.post('/login',(req,res)=>{    
+app.post('/login',(req,res)=>{
+    var random_sessionid = crypto.randomBytes(32).toString('hex');
     User.findOne({email: req.body.email})
     .then((result)=>{
         if(result== null){
@@ -97,13 +99,10 @@ app.post('/login',(req,res)=>{
                 res.redirect('/login');
             }
             else{
-                const value='12345678';
-                req.body.session = value;
-                console.log(req.body);
+                req.body.session = random_sessionid;
                 const session = new Session(req.body);
                 session.save();
-                console.log("~valid~");
-                res.cookie("Session",value);
+                res.cookie("Session",random_sessionid);
                 res.cookie("Name",result.name);                
                 res.redirect('/blogs/create');
             }
@@ -117,6 +116,7 @@ app.post('/login',(req,res)=>{
 //Logout
 app.get('/logout',(req,res)=>{
     //remove session from cookie
+    //Session.deleteOne({})
     res.clearCookie("Name");
     res.clearCookie("Session");
     res.redirect('/');

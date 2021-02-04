@@ -23,13 +23,22 @@ mongoose.connect(dburi,{ useNewUrlParser: true, useUnifiedTopology : true})
 
 
 //Crone Scheduled for every hour.
-crone.schedule('*/20 * * * * *', (err) => {
-    Blog.updateMany({isVisible:0},{isVisible:1})
+crone.schedule('*/60 * * * * *', (err) => {
+    // var date= new Date();
+    // console.log(date);
+    // Blog.find({datetime:{$lt: new Date()}})
+    // .then((result)=>{
+    //     console.log(result);
+    // })
+    // .catch((err)=>{
+    //     console.log(err);
+    // })
+    Blog.updateMany({datetime:{$lt: new Date()}},{isVisible:1})
     .catch((err)=> {
         console.log(err);
     });
     console.log('Crone !!!!');
-})
+});
 
 //Home page
 app.get('/',(req,res)=>{
@@ -53,7 +62,7 @@ app.use('/blogs',blogroutes);
 //Signup
 app.get('/signup',(req,res)=>{
     res.render('signup',{title:'Signup'});
-})
+});
 
 //Signup
 app.post('/signup',(req,res)=>{
@@ -66,12 +75,12 @@ app.post('/signup',(req,res)=>{
     .catch((err)=>{
         console.log(err);
     });
-})
+});
 
 //Login
 app.get('/login',(req,res)=>{
     res.render('login',{title:'Login'})
-})
+});
 
 //Verify credentials
 app.post('/login',(req,res)=>{    
@@ -92,7 +101,7 @@ app.post('/login',(req,res)=>{
     .catch((err)=>{
         console.log(err);
     })
-})
+});
 
 //404 page
 app.use((req,res)=>{

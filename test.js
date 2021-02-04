@@ -5,18 +5,17 @@ const crone = require('node-cron');
 const express = require('express');
 const app = express();
 
-
 //fetch new data every 10 seconds.
-// setInterval( function(){
-// Request.get("https://api.cryptonator.com/api/ticker/btc-usd", (error, response) => {
-//     if(error) {
-//         return console.log(error);
-//     }
-//     //console.log('connected');
-//     //console.log(response.body);
-//     console.log(JSON.parse(response.body));
-// });
-// },10000);
+setInterval( function(){
+Request.get("https://api.cryptonator.com/api/ticker/btc-usd", (error, response) => {
+    if(error) {
+        return console.log(error);
+    }
+    //console.log('connected');
+    //console.log(response.body);
+    console.log(JSON.parse(response.body));
+});
+},10000);
 
 // crone shedule for schedule file upload.
 // crone.schedule('*/10 * * * * *', () => {

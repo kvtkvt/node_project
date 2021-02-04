@@ -14,6 +14,10 @@ const blogSchema = new Schema({
         type:String,
         required:true
     },
+    datetime:{
+        type:Date,
+        required:false
+    },
     isVisible:{
         type:Boolean,
         required:true,

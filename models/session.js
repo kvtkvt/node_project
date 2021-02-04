@@ -1,8 +1,8 @@
 const mongoose= require('mongoose')
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-    name:{
+const sessionSchema = new Schema({
+    session:{
         type:String,
         required:true
     },
@@ -10,13 +10,8 @@ const userSchema = new Schema({
         type:String,
         required:true
     },
-    password:{
-        type:String,
-        required:true
-    },
 },{timestamps:true});
 
-//model user
-const User =mongoose.model('User',userSchema);
-
-module.exports=User;
+//model session
+const Session =mongoose.model('Session',sessionSchema);
+module.exports=Session;

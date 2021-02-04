@@ -2,6 +2,7 @@ const express= require ('express');
 const mongoose= require('mongoose');
 const Blog =require('./models/blog');
 const User =require('./models/user');
+const Session = require('./models/session');
 const app= express();
 const crone=require('node-cron');
 const Bcrypt=require('bcrypt');
@@ -66,7 +67,7 @@ app.get('/signup',(req,res)=>{
 
 //Signup
 app.post('/signup',(req,res)=>{
-    req.body.password=Bcrypt.hash(req.body.password,10);
+    req.body.password=Bcrypt.hashSync(req.body.password,10);
     const user_detail = new User(req.body);
     user_detail.save()
     .then((result)=>{
@@ -88,19 +89,37 @@ app.post('/login',(req,res)=>{
     .then((result)=>{
         if(result== null){
             console.log("username not exist!!!");
+            res.redirect('/signup');
         }
         else{
-            if(!Bcrypt.compare(req.body.password,result.password)){
+            if(!Bcrypt.compareSync(req.body.password,result.password)){
                 console.log("password does not match");
+                res.redirect('/login');
             }
             else{
-                console.log("~valid~");                
+                const value='12345678';
+                req.body.session = value;
+                console.log(req.body);
+                const session = new Session(req.body);
+                session.save();
+                console.log("~valid~");
+                res.cookie("Session",value);
+                res.cookie("Name",result.name);                
+                res.redirect('/blogs/create');
             }
         }
     })
     .catch((err)=>{
         console.log(err);
     })
+});
+
+//Logout
+app.get('/logout',(req,res)=>{
+    //remove session from cookie
+    res.clearCookie("Name");
+    res.clearCookie("Session");
+    res.redirect('/');
 });
 
 //404 page

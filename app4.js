@@ -116,10 +116,19 @@ app.post('/login',(req,res)=>{
 //Logout
 app.get('/logout',(req,res)=>{
     //remove session from cookie
-    //Session.deleteOne({})
-    res.clearCookie("Name");
-    res.clearCookie("Session");
-    res.redirect('/');
+    if (req.headers.cookie == undefined) {
+        res.redirect('/login');
+    }
+    const user_session = req.headers.cookie.split('; ').find(row=>row.startsWith('Session')).split('=')[1];
+    Session.deleteOne({session : user_session})
+    .then((result)=>{
+        res.clearCookie("Name");
+        res.clearCookie("Session");
+        res.redirect('/');
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
 });
 
 //404 page

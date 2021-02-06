@@ -25,9 +25,10 @@ mongoose.connect(dburi,{ useNewUrlParser: true, useUnifiedTopology : true})
 
 
 //Crone Scheduled for every hour.
-crone.schedule('*/60 * * * * *', (err) => {
-    // var date= new Date();
+crone.schedule('*/10 * * * * * *', (err) => {
+    // var date= new Date().toLocaleString();
     // console.log(date);
+    //console.log(date.toLocaleString());
     // Blog.find({datetime:{$lt: new Date()}})
     // .then((result)=>{
     //     console.log(result);
@@ -35,7 +36,7 @@ crone.schedule('*/60 * * * * *', (err) => {
     // .catch((err)=>{
     //     console.log(err);
     // })
-    Blog.updateMany({datetime:{$lt: new Date()}},{isVisible:1})
+    Blog.updateMany({datetime:{$lte: new Date().toLocaleString()}},{isVisible:1})
     .catch((err)=> {
         console.log(err);
     });
@@ -72,7 +73,7 @@ app.post('/signup',(req,res)=>{
     const user_detail = new User(req.body);
     user_detail.save()
     .then((result)=>{
-        res.redirect('/login');
+        res.render('login',{title:'Login',error:'Signup Success,Please Login To Publish Blog.'});
     })
     .catch((err)=>{
         console.log(err);
@@ -81,7 +82,7 @@ app.post('/signup',(req,res)=>{
 
 //Login
 app.get('/login',(req,res)=>{
-    res.render('login',{title:'Login'})
+    res.render('login',{title:'Login',error:'Login'})
 });
 
 //Verify credentials
@@ -91,12 +92,12 @@ app.post('/login',(req,res)=>{
     .then((result)=>{
         if(result== null){
             console.log("username not exist!!!");
-            res.redirect('/signup');
+            res.render('login',{title:'title',error:'User does not exist,Please Signup'});
         }
         else{
             if(!Bcrypt.compareSync(req.body.password,result.password)){
                 console.log("password does not match");
-                res.redirect('/login');
+                res.render('login',{title:'Login',error: 'Wrong password.'});
             }
             else{
                 req.body.session = random_sessionid;
@@ -117,18 +118,20 @@ app.post('/login',(req,res)=>{
 app.get('/logout',(req,res)=>{
     //remove session from cookie
     if (req.headers.cookie == undefined) {
-        res.redirect('/login');
+        res.render('login',{title: 'Login',error: 'Logout success.'});
     }
-    const user_session = req.headers.cookie.split('; ').find(row=>row.startsWith('Session')).split('=')[1];
-    Session.deleteOne({session : user_session})
-    .then((result)=>{
-        res.clearCookie("Name");
-        res.clearCookie("Session");
-        res.redirect('/');
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
+    else{
+        const user_session = req.headers.cookie.split('; ').find(row=>row.startsWith('Session')).split('=')[1];
+        Session.deleteOne({session : user_session})
+        .then((result)=>{
+            res.clearCookie("Name");
+            res.clearCookie("Session");
+            res.redirect('/');
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
 });
 
 //404 page

@@ -39,22 +39,23 @@ const blog_delete= (req,res)=>{
 
 const blog_create_get=(req,res)=>{
     if (req.headers.cookie == undefined) {
-        res.redirect('/login');
+        res.render('login',{title:'Login' ,error : 'Login first!'});
     }
-    const user_session = req.headers.cookie.split('; ').find(row=>row.startsWith('Session')).split('=')[1];
-    console.log(user_session);
-    Session.findOne({session : user_session})
-    .then((result)=>{
-        if(result == null){
-            res.redirect('/login');
-        }
-        else{
-            res.render('create',{title: 'Create-Blog'});            
-        }
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
+    else{
+        const user_session = req.headers.cookie.split('; ').find(row=>row.startsWith('Session')).split('=')[1];
+        Session.findOne({session : user_session})
+        .then((result)=>{
+            if(result == null){
+                res.render('login',{title:'Login',error : 'Login first!'});
+            }
+            else{
+                res.render('create',{title: 'Create-Blog'});            
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
 }
 
 const blog_create_post=(req,res)=>{

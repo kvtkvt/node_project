@@ -25,17 +25,7 @@ mongoose.connect(dburi,{ useNewUrlParser: true, useUnifiedTopology : true})
 
 
 //Crone Scheduled for every hour.
-crone.schedule('*/10 * * * * * *', (err) => {
-    // var date= new Date().toLocaleString();
-    // console.log(date);
-    //console.log(date.toLocaleString());
-    // Blog.find({datetime:{$lt: new Date()}})
-    // .then((result)=>{
-    //     console.log(result);
-    // })
-    // .catch((err)=>{
-    //     console.log(err);
-    // })
+crone.schedule('*/60 * * * * *', (err) => {
     Blog.updateMany({datetime:{$lte: new Date().toLocaleString()}},{isVisible:1})
     .catch((err)=> {
         console.log(err);

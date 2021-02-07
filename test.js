@@ -4,18 +4,26 @@ const fs = require('fs');
 const crone = require('node-cron');
 const express = require('express');
 const app = express();
+const bcrypt=require('bcrypt');
+const plainTextPassword1 = "DFGh5546*%^__90";
+
+for (let saltRounds = 10; saltRounds < 21; saltRounds++) {
+  console.time(`time to hash`);
+  bcrypt.hash(plainTextPassword1, saltRounds);
+  console.timeEnd(`time to hash`);
+}
 
 //fetch new data every 10 seconds.
-setInterval( function(){
-Request.get("https://api.cryptonator.com/api/ticker/btc-usd", (error, response) => {
-    if(error) {
-        return console.log(error);
-    }
-    //console.log('connected');
-    //console.log(response.body);
-    console.log(JSON.parse(response.body));
-});
-},10000);
+// setInterval( function(){
+// Request.get("https://api.cryptonator.com/api/ticker/btc-usd", (error, response) => {
+//     if(error) {
+//         return console.log(error);
+//     }
+//     //console.log('connected');
+//     //console.log(response.body);
+//     console.log(JSON.parse(response.body));
+// });
+// },10000);
 
 // crone shedule for schedule file upload.
 // crone.schedule('*/10 * * * * *', () => {
@@ -52,3 +60,4 @@ Request.get("https://api.cryptonator.com/api/ticker/btc-usd", (error, response) 
 //         });
 //     },2000);
 // })
+

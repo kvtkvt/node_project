@@ -15,7 +15,15 @@
       <%-blog.body %>
     <br>
     <br>
-    <a class="delete" data-doc="<%= blog._id%>">Delete</a>    
+    <script>
+      var x = document.cookie.split('; ')
+                .find(row => row.startsWith('Name'))
+                .split('=')[1];
+      if (x !== undefined) {
+        var delete_button='<a class="delete" data-doc="<%= blog._id%>">Delete</a>';    
+        document.write(delete_button);
+      }
+    </script>
   </div>
   <%- include("./partials/footer.ejs") %>
   

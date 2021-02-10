@@ -25,7 +25,7 @@ mongoose.connect(dburi,{ useNewUrlParser: true, useUnifiedTopology : true})
 
 
 //Crone Scheduled for every hour.
-crone.schedule('*/60 * * * * *', (err) => {
+crone.schedule('*/60 * * * *', (err) => {
     Blog.updateMany({datetime:{$lte: new Date().toLocaleString()}},{isVisible:1})
     .catch((err)=> {
         console.log(err);
@@ -75,14 +75,14 @@ app.get('/login',(req,res)=>{
     res.render('login',{title:'Login',error:'Login'})
 });
 
-//Verify credentials
+//Login Verify credentials
 app.post('/login',(req,res)=>{
     var random_sessionid = crypto.randomBytes(32).toString('hex');
     User.findOne({email: req.body.email})
     .then((result)=>{
         if(result== null){
             console.log("username not exist!!!");
-            res.render('login',{title:'title',error:'User does not exist,Please Signup'});
+            res.render('login',{title:'Login',error:'User does not exist,Please Signup'});
         }
         else{
             if(!Bcrypt.compareSync(req.body.password,result.password)){
@@ -102,6 +102,50 @@ app.post('/login',(req,res)=>{
     .catch((err)=>{
         console.log(err);
     })
+});
+
+//Change Password.
+app.get('/changepassword',(req,res)=>{
+    if (req.headers.cookie == undefined){
+        res.render('login',{title:'Login',error :'Login first!'});
+    }
+    else{
+        res.render('changepassword',{title: 'Change Password'})
+    }
+});
+
+//Post Change Password.
+app.post('/changepassword',(req,res)=>{
+    const user_session = req.headers.cookie.split('; ').find(row=>row.startsWith('Session')).split('=')[1];
+    var new_password= Bcrypt.hashSync(req.body.newpassword,10);
+    Session.findOne({session :user_session})
+    .then((result)=>{
+        var user_email=result.email;
+        User.findOne({email : result.email})
+        .then((result)=>{
+            if(!Bcrypt.compareSync(req.body.password,result.password)){
+                console.log("password does not match");
+            }
+            else{
+                User.updateOne({email : user_email},{password : new_password})
+                .then((result)=>{
+                    console.log('password matched.');
+                    res.clearCookie("Name");
+                    res.clearCookie("Session");                
+                    res.render('login',{title:'Login',error: 'Password changed,please login.'});
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    })
+    .catch((err)=>{
+        console.log(err);
+    })    
 });
 
 //Logout

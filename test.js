@@ -7,11 +7,19 @@ const app = express();
 const bcrypt=require('bcrypt');
 const plainTextPassword1 = "DFGh5546*%^__90";
 
+//salt sync
 for (let saltRounds = 10; saltRounds < 21; saltRounds++) {
   console.time(`time to hash`);
-  bcrypt.hash(plainTextPassword1, saltRounds);
+  bcrypt.hashSync('123', saltRounds);
   console.timeEnd(`time to hash`);
 }
+
+//salt async
+// for (let saltRounds = 10; saltRounds < 21; saltRounds++) {
+//   console.time(`time to hash`);
+//   bcrypt.hash(plainTextPassword1, saltRounds);
+//   console.timeEnd(`time to hash`);
+// }
 
 //fetch new data every 10 seconds.
 // setInterval( function(){
@@ -60,4 +68,3 @@ for (let saltRounds = 10; saltRounds < 21; saltRounds++) {
 //         });
 //     },2000);
 // })
-

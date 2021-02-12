@@ -13,6 +13,15 @@ const blogSchema = new Schema({
     body:{
         type:String,
         required:true
+    },
+    datetime:{
+        type:Date,
+        required:false
+    },
+    isVisible:{
+        type:Boolean,
+        required:true,
+        default:0
     }
 },{timestamps:true});
 

@@ -1,5 +1,23 @@
+<!DOCTYPE html>
 <html lang="en">
 <%- include("./partials/head.ejs") %>
+<script src="https://cdn.tiny.cloud/1/ui8b1w5iczi6d8lanfamj63uw43m2tm3rm8kdlecoswix9w5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>tinymce.init({selector:'textarea'});</script>
+<script>
+  function myFunction() {
+  // Get the checkbox
+  var checkBox = document.getElementById("myCheck");
+  // Get the output text
+  var datetime = document.getElementById("datetime");
+
+  // If the checkbox is checked, display the output datetime
+  if (checkBox.checked == true){
+    datetime.style.display = "block";
+  } else {
+    datetime.style.display = "none";
+  }
+}
+</script>
 
 <body>
   <%- include("./partials/nav.ejs") %>
@@ -11,7 +29,13 @@
       <label for="snippet">Blog snippet:</label>
       <input type="text" id="snippet" name="snippet" required>
       <label for="body">Blog body:</label>
-      <textarea id="body" name="body" required></textarea>
+      <textarea id="body" name="body"></textarea>
+      Display in future:
+      <input type="checkbox" id="myCheck" onclick="myFunction()">
+      <div id="datetime" style="display: none">
+        <label for="date" id="textdate">Select Future Date & Time:</label>
+        <input type="datetime-local" name="datetime">
+      </div>
       <button>Submit</button>
     </form>
   </div>

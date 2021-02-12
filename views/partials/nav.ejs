@@ -1,11 +1,48 @@
+<script>
+    setInterval(() => {
+        fetch('https://api.cryptonator.com/api/ticker/btc-usd')
+        .then(response => response.text()).then(textString =>{
+            console.log(textString);
+            var price = textString.split(',')[2].split(':')[1];
+            console.log("Bitcoin Price:- " + price);
+            document.getElementById("price").innerHTML = ('Bitcoin Price:- $ '+ price);
+          })
+        .catch(err =>{
+          console.log(err);
+        })
+      }, 15000);
+    var x = document.cookie.split('; ')
+        .find(row => row.startsWith('Name'))
+        .split('=')[1];
+</script>
 <nav>
-    <div class="site-title">
-        <a href="/">Blog home page</a>
-        <p>Latest Node Blog.......</p>
+    <div class="site-title">Welcome
+        <script>
+            if (x !== undefined) {
+                document.write(x)
+            }
+        </script>
     </div>
+    <label id="price">Bitcoin Price is Updating..</label>
     <ul>
-        <li><a href="/blogs">blog</a></li>
-        <li><a href="/about">about</a></li>
-        <li><a href="/blogs/create">create blog</a></li>
+        <li><a href="/blogs">Blog</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/blogs/create">Create blog</a></li>
+        <script>
+            if (x !== undefined) {
+                var c = '<li><a href="/logout">Logout</a></li>';
+                var d = '<li><a href="/changepassword">Change Password</a></li>';
+                document.write(d);
+                document.write(c);
+            }
+        </script>
+        <script>
+            if (x === undefined) {
+                var a = '<li><a href="/signup">Signup</a></li>';
+                var b = '<li><a href="/login">Login</a></li>';
+                document.write(a);
+                document.write(b);
+            }
+        </script>
     </ul>
 </nav>

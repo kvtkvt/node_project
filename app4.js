@@ -125,6 +125,9 @@ app.post('/changepassword',(req,res)=>{
         .then((result)=>{
             if(!Bcrypt.compareSync(req.body.password,result.password)){
                 console.log("password does not match");
+                res.clearCookie("Name");
+                res.clearCookie("Seasion");
+                res.render('login',{title:'Login',error:'Current Password Does Not Match.'});
             }
             else{
                 User.updateOne({email : user_email},{password : new_password})

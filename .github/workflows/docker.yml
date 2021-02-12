@@ -2,7 +2,7 @@ name: docker-workflow.
 
 on:
   push:
-    branches: [ node_project ]
+    branches: [ final_project ]
 
 jobs:
   main:

@@ -2,7 +2,7 @@ name: docker-workflow.
 
 on:
   push:
-    branches: [ WSL-branch ]
+    branches: [ node_project ]
 
 jobs:
   main:
